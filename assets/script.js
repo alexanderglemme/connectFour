@@ -13,12 +13,18 @@ window.onload = function() {
 //function that makes divs representing the connect4-grid cells, and gives them unique coordinates by setting id
 function setGridCells() {
     
-    gameGrid = [];
+    connect4Grid = [];
 
     for (let r = 0; r < rows; r++) {
+        let row = [];
         for (let c = 0; c < columns; c++) {
-
+            row.push(' ');
+            let cell = document.createElement('div');
+            cell.id = r.toString() + '-' + c.toString();
+            cell.classList.add('cell');
+            document.getElementById('connect4-grid').append(cell);
         }
+        connect4Grid.push(row)
     }
 }
 
