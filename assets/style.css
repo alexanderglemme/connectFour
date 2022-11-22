@@ -14,6 +14,14 @@ body {
     display: flex;
 }
 
+.red-chip {
+    background-color: red;
+}
+
+.yellow-chip {
+    background-color: yellow;
+}
+
 #connect4-grid {
     height: 600px;
     width: 700px;
