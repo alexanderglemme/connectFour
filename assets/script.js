@@ -16,16 +16,27 @@ function setGridCells() {
     connect4Grid = [];
 
     for (let r = 0; r < rows; r++) {
-        let row = [];
+        let row = [];//makes 6 empty arrays named row
         for (let c = 0; c < columns; c++) {
-            row.push(' ');
+            row.push(' ');//pupulates the row arrays with empty strings
             let cell = document.createElement('div');
-            cell.id = r.toString() + '-' + c.toString();
             cell.classList.add('cell');
-            document.getElementById('connect4-grid').append(cell);
+            cell.id = r.toString() + '-' + c.toString();
+            document.getElementById('connect4-grid').append(cell);//appends a div.cell to the html, and gives an id of 'r-c'
         }
-        connect4Grid.push(row)
+        connect4Grid.push(row)//pushes the rows to the grid
     }
-}
+}/*
+This now makes a JS grid that looks like this:
+connect4Grid = [
+    ['','','','','','',''],
+    ['','','','','','',''],
+    ['','','','','','',''],
+    ['','','','','','',''],
+    ['','','','','','',''],
+    ['','','','','','',''],
+]; Where the empty strings are cells represented as divs with r and c values as ids. First string in first array is connect4Grid[0][0]
+which correlates to the first html child divs id with '-' in between so called r and c
+*/
 
-//Add function that takes turns by changing the current player from red to yellow
+//Add function that changes the backgroundcolor of getElementByClassName('cell')
