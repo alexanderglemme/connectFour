@@ -63,3 +63,16 @@ function placeChip() {
     }
     
 }
+
+checkWin = function() {
+    connected4();
+}
+
+function connected4() {
+    for (let rowIndex = 0; rowIndex <= rows; row++) {
+    if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex] && connect4Grid[rowIndex + 1][colIndex] == connect4Grid[rowIndex + 2][colIndex]
+        && connect4Grid[rowIndex + 3][colIndex]) {
+            
+        }
+    }    
+}
