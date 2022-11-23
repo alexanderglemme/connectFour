@@ -10,9 +10,9 @@ window.onload = function() {
     setGridCells();
 }
 
-var playerYellow = 'Yellow'
-var playerRed = 'Red'
-var currentPlayer = playerRed
+var playerYellow = 'Yellow chip'
+var playerRed = 'Red chip'
+var currentPlayer = playerYellow
 
 //function that makes divs representing the connect4-grid cells, and gives them unique coordinates by setting id
 function setGridCells() {
@@ -49,17 +49,17 @@ which correlates to the first html child divs id with '-' in between so called r
 function placeChip() {
     let clickedCell = this.id.split('-');
     let rowIndex = clickedCell[0];
-    let colIndex = clickedCell[1];
-
+    let colIndex = clickedCell[1]; 
+//Updates html grid
     let cell = document.getElementById(rowIndex + '-' + colIndex)//gets clicked cell
         if (currentPlayer == playerRed) {
         cell.classList.add('red-chip');//updates cell html and makes it red if the currentPlayer is playerRed
-        let currentPlayer = playerYellow; 
+        currentPlayer = playerYellow//then turns currentPlayer to yellow as it exits if statement
+    } else if (currentPlayer == playerYellow) {
+        cell.classList.add('yellow-chip');
+        currentPlayer = playerRed//back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
     }
-
-    if (currentPlayer == playerYellow) {
-    cell.classList.add('yellow-chip');//updates cell html and makes it red if the currentPlayer is playerYellow
-    let currentPlayer = playerRed; 
-}
-    //TODO: 1. Make colors alternate 2.figure out way to update JS grid to some player value that can be checked for winner
+//Update JS grid
+connect4Grid[parseInt(rowIndex)][parseInt(colIndex)] = currentPlayer
+    
 }
