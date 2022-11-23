@@ -29,7 +29,7 @@ function setGridCells() {
             cell.id = rowIndex.toString() + '-' + colIndex.toString();
             document.getElementById('connect4-grid').append(cell);//appends a div.cell to the html, and gives an id of 'rowIndex-colIndex'
         }
-        connect4Grid.push(row)//pushes the rows to the grid
+        connect4Grid.push(row)//pushes the row arrays to the grid array
     }
 }/*
 This now makes a JS grid that looks like this:
@@ -54,12 +54,12 @@ function placeChip() {
     let cell = document.getElementById(rowIndex + '-' + colIndex)//gets clicked cell
         if (currentPlayer == playerRed) {
         cell.classList.add('red-chip');//updates cell html and makes it red if the currentPlayer is playerRed
-        currentPlayer = playerYellow//then turns currentPlayer to yellow as it exits if statement
+        connect4Grid[parseInt(rowIndex)][parseInt(colIndex)] = currentPlayer;//Updates the JS grid
+        currentPlayer = playerYellow;//then turns currentPlayer to yellow as it exits if statement
     } else if (currentPlayer == playerYellow) {
         cell.classList.add('yellow-chip');
-        currentPlayer = playerRed//back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
+        connect4Grid[parseInt(rowIndex)][parseInt(colIndex)] = currentPlayer;//In each statement bc otherwise the strings would be flipped in JS grid
+        currentPlayer = playerRed;//back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
     }
-//Update JS grid
-connect4Grid[parseInt(rowIndex)][parseInt(colIndex)] = currentPlayer
     
 }
