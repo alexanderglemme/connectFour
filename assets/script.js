@@ -56,12 +56,14 @@ function placeChip() {
         cell.classList.add('red-chip');//updates cell html and makes it red if the currentPlayer is playerRed
         connect4Grid[rowIndex][colIndex] = currentPlayer;//Updates the JS grid
         currentPlayer = playerYellow;//then turns currentPlayer to yellow as it exits if statement
+        //checkWin(rowIndex, colIndex);
     } else if (currentPlayer == playerYellow) {
         cell.classList.add('yellow-chip');
         connect4Grid[rowIndex][colIndex] = currentPlayer;//In each statement bc otherwise the strings would be flipped in JS grid
         currentPlayer = playerRed;//back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
+        //checkWin(rowIndex, colIndex);
     }
-   checkWin(rowIndex, colIndex)
+   checkWin(rowIndex, colIndex);
 }
 
 function checkWin(rowIndex, colIndex) {
@@ -86,11 +88,12 @@ function connected4Row(rowIndex) {
             numOfMatchingChips += 1;
             if(numOfMatchingChips == 4) {
                 return true
+            } else {
+                numOfMatchingChips = 1;
             }
         }
     }
-
-
+    return false;
 }
 
 
