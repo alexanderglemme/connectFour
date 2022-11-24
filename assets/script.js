@@ -1,6 +1,3 @@
-
-
-//Make actual grid
 var rows = 6
 var columns = 7
 
@@ -13,6 +10,7 @@ window.onload = function() {
 var playerYellow = 'Yellow chip'
 var playerRed = 'Red chip'
 var currentPlayer = playerYellow
+var gameOver = false;    
 
 //function that makes divs representing the connect4-grid cells, and gives them unique coordinates by setting id
 function setGridCells() {
@@ -31,87 +29,51 @@ function setGridCells() {
         }
         connect4Grid.push(row)//pushes the row arrays to the grid array
     }
-}/*
-This now makes a JS grid that looks like this:
-connect4Grid = [
-    ['','','','','','',''],
-    ['','','','','','',''],
-    ['','','','','','',''],
-    ['','','','','','',''],
-    ['','','','','','',''],
-    ['','','','','','',''],
-]; Where the empty strings are cells represented as divs with rowIndex and colIndex values as ids. First string in first array is connect4Grid[0][0]
-which correlates to the first html child divs id with '-' in between so called rowIndex and colIndex
-*/
-
-//Add function that changes the backgroundcolor of getElementByClassName('cell')
+}
 
 function placeChip() {
     let cell = this
     let clickedCellCoord = cell.id.split('-');
     let rowIndex = parseInt(clickedCellCoord[0]);
     let colIndex = parseInt(clickedCellCoord[1]); 
-//Updates html grid
+    //Updates grids
         if (currentPlayer == playerRed) {
         cell.classList.add('red-chip');//updates cell html and makes it red if the currentPlayer is playerRed
         connect4Grid[rowIndex][colIndex] = currentPlayer;//Updates the JS grid
         currentPlayer = playerYellow;//then turns currentPlayer to yellow as it exits if statement
-        //checkWin(rowIndex, colIndex);
+        
     } else if (currentPlayer == playerYellow) {
         cell.classList.add('yellow-chip');
         connect4Grid[rowIndex][colIndex] = currentPlayer;//In each statement bc otherwise the strings would be flipped in JS grid
-        currentPlayer = playerRed;//back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
-        //checkWin(rowIndex, colIndex);
+        currentPlayer = playerRed;//Back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
+        
     }
-   checkWin(rowIndex, colIndex);
-}
+   checkWin();
+}   
 
-function checkWin(rowIndex, colIndex) {
-    if (connected4Row(rowIndex) || connected4Col(colIndex)) {
-        return true;
-    } else {
-        return false;
-    }
-
-}
-
-function connected4Row(rowIndex) {
-    let row = connect4Grid[rowIndex];
-    let currentChipIndex = 0;
-    let nextChipIndex = currentChipIndex + 1;
-    let numOfMatchingChips = 1;
-
-    while (nextChipIndex < row.length) {
-        let currentValue = row[currentChipIndex]
-        let nextValue = row[nextChipIndex]
-        if (currentValue == nextValue) {
-            numOfMatchingChips += 1;
-            if(numOfMatchingChips == 4) {
-                return true
-            } else {
-                numOfMatchingChips = 1;
+function checkWin() {
+    //checks column per column for winner
+    for (let colIndex = 0; colIndex < columns; colIndex++) {
+        for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != undefined) {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex][colIndex + 1] && connect4Grid[rowIndex][colIndex + 1] == connect4Grid[rowIndex][colIndex + 2]
+                    && connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]) {
+                        gameOver = true;
+                        return true;
+                }
             }
         }
     }
-    return false;
-}
-
-
-
-
-
-
-
-/*checkWin = function() {
-    connected4();
-}
-
-function connected4() {
-    for (let rowIndex = 0; rowIndex <= rows; rowIndex++) {
-        for (let colIndex = 0; colIndex <= columns; colIndex++)
-    if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex] && connect4Grid[rowIndex + 1][colIndex] == connect4Grid[rowIndex + 2][colIndex]
-        && connect4Grid[rowIndex + 3][colIndex]) {
-            window.alert('We have a winner!!!');
+    //checks horisontal by iterating through all rows and looking for 4 defined cells that have the same value
+    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+        for (let colIndex = 0; colIndex < 4; colIndex++) {
+        if (connect4Grid[rowIndex][colIndex] != undefined) { 
+            if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex] && connect4Grid[rowIndex + 1][colIndex] == connect4Grid[rowIndex + 2][colIndex]
+                && connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]) {
+                    gameOver = true;
+                    return true;
+                }
+            }
         }
-    }    
-}*/
+    }
+}    
