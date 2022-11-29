@@ -3,14 +3,15 @@ var columns = 7
 
 var connect4Grid;
 
+var numOfMatchingChips = 1;
+
 window.onload = function () {
     setGridCells();
 }
 
-var playerYellow = 'Yellow chip'
-var playerRed = 'Red chip'
-var currentPlayer = playerYellow
-var numOfMatchingChips = 1;
+var playerYellow = 'Y';
+var playerRed = 'R';
+var currentPlayer = playerYellow;
 var gameOver = false;
 
 //function that makes divs representing the connect4-grid cells, and gives them unique coordinates by setting id
@@ -49,85 +50,38 @@ function placeChip() {
         currentPlayer = playerRed; //Back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
 
     }
-    connected4Row();
-    connected4Col();
+    checkWin();
 }
 
-/*function checkWin() {
-    //checks column per column for winner
+function checkWin() {
+    //checks vertically
     for (let colIndex = 0; colIndex < columns; colIndex++) {
-        for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+        for (let rowIndex = 0; rowIndex < rows - 1; rowIndex++) {
             if (connect4Grid[rowIndex][colIndex] != undefined) {
-                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex][colIndex + 1] && connect4Grid[rowIndex][colIndex + 1] == connect4Grid[rowIndex][colIndex + 2]
-                    && connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]) {
-                        gameOver = true;
-                        return true;
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex]) {
+                    numOfMatchingChips += 1;
                 }
             }
         }
+
     }
-    //checks horisontal by iterating through all rows and looking for 4 defined cells that have the same value
+    //Checks horisontal
     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
-        for (let colIndex = 0; colIndex < 4; colIndex++) {
-        if (connect4Grid[rowIndex][colIndex] != undefined) { 
-            if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex] && connect4Grid[rowIndex + 1][colIndex] == connect4Grid[rowIndex + 2][colIndex]
-                && connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]) {
-                    gameOver = true;
-                    return true;
+        for (let colIndex = 0; colIndex < columns - 1; colIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != undefined) {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex][colIndex + 1]) {
+                    numOfMatchingChips += 1;
                 }
             }
         }
     }
-     
-}*/
-
-function connected4Row() {
-    let row = connect4Grid[0].length;
-    let currentChipIndex = 0;
-    let nextChipIndex = currentChipIndex + 1;
-
-
-    for (nextChipIndex < row; nextChipIndex++;) {
-        let currentValue = row[currentChipIndex]
-        let nextValue = row[nextChipIndex]
-        if (currentValue == nextValue) {
-            if (row != undefined) {
-                numOfMatchingChips += 1;
-                if (numOfMatchingChips == 4) {
-                    gameOver = true
-                    return true;
-                } else {
-                    numOfMatchingChips = 1;
-                }
-            }
-        }
-        currentChipIndex += 1;
-        nextChipIndex += 1;
-    }
-    return false;
 }
 
-function connected4Col() {
-    //for (let colIndex = 0; colIndex < column.length; colIndex++) {
-        let column = connect4Grid.length;
-        let currentChipIndex = 0;
-        let nextChipIndex = currentChipIndex + 1;
+/*function chipsMatch() {
+    numOfMatchingChips += 1;
+    if (numOfMatchingChips == 4) {
+        gameOver = true;
+        return true;
 
-        for (nextChipIndex < column.length; nextChipIndex++;) {
-            let currentValue = column[currentChipIndex][nextChipIndex];
-            let nextValue = column[currentChipIndex][nextChipIndex];
-            if (currentValue == nextValue) {
-                if (column != undefined) {
-                    numOfMatchingChips += 1;
-                    if (numOfMatchingChips == 4) {
-                        return true;
-                    } else {
-                        numOfMatchingChips = 1;
-                    }
-                }
-            }
-        }
-        currentChipIndex += 1;
-        nextChipIndex += 1;
     }
-    return false;
+}*/
