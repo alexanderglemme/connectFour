@@ -3,14 +3,14 @@ var columns = 7
 
 var connect4Grid;
 
-var numOfMatchingChips = 1;
+var numOfMatchingChips;
 
 window.onload = function () {
     setGridCells();
 }
 
-var playerYellow = 'Y';
-var playerRed = 'R';
+var playerYellow = 'Yellow';
+var playerRed = 'Red';
 var currentPlayer = playerYellow;
 var gameOver = false;
 
@@ -31,6 +31,10 @@ function setGridCells() {
         }
         connect4Grid.push(row) //pushes the row arrays to the grid array
     }
+    alert('Hi, and welcome to connect four!')
+    alert('The rules are simple: Try and connect 4 chips of the same color by placing them on the grid either vertically, horisontally or diagonally.')
+    alert("Note that you are only allowed to place chips on empty cells starting from the BOTTOM! Let's begin!")
+    alert('Yellow goes first!')
 }
 
 function placeChip() {
@@ -42,46 +46,59 @@ function placeChip() {
     if (currentPlayer == playerRed) {
         cell.classList.add('red-chip'); //updates cell html and makes it red if the currentPlayer is playerRed
         connect4Grid[rowIndex][colIndex] = currentPlayer; //Updates the JS grid
+        checkWin();
         currentPlayer = playerYellow; //then turns currentPlayer to yellow as it exits if statement
 
     } else if (currentPlayer == playerYellow) {
         cell.classList.add('yellow-chip');
         connect4Grid[rowIndex][colIndex] = currentPlayer; //In each statement bc otherwise the strings would be flipped in JS grid
+        checkWin();
         currentPlayer = playerRed; //Back to red as it exits else if, so that next time its function is called currentPlayer == playerRed
 
     }
-    checkWin();
+    //checkWin();
 }
 
 function checkWin() {
     //checks vertically
     for (let colIndex = 0; colIndex < columns; colIndex++) {
-        for (let rowIndex = 0; rowIndex < rows - 1; rowIndex++) {
-            if (connect4Grid[rowIndex][colIndex] != undefined) {
-                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex]) {
-                    numOfMatchingChips += 1;
-                }
+        for (let rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != ' ') {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex] && connect4Grid[rowIndex + 1][colIndex] == connect4Grid[rowIndex + 2][colIndex] && connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]) {
+                    alert('Hooray ' + currentPlayer + ' just won vertically!')
             }
         }
 
     }
+}
     //Checks horisontal
     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
-        for (let colIndex = 0; colIndex < columns - 1; colIndex++) {
-            if (connect4Grid[rowIndex][colIndex] != undefined) {
-                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex][colIndex + 1]) {
-                    numOfMatchingChips += 1;
+        for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != ' ') {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex][colIndex + 1] && connect4Grid[rowIndex][colIndex + 1] == connect4Grid[rowIndex][colIndex + 2] && connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]) {
+                    alert('Hooray ' + currentPlayer + ' just won horisontally!');
+                }
+            }
+        }
+    }
+    //checks diagonally bottom to top
+    for (let rowIndex = 5; rowIndex > 3; rowIndex--) {
+        for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != ' ') {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex - 1][colIndex + 1] && connect4Grid[rowIndex - 1][colIndex + 1] == connect4Grid[rowIndex - 2][colIndex + 2] && connect4Grid[rowIndex - 2][colIndex + 2] == connect4Grid[rowIndex - 3][colIndex +3]) {
+                    alert('Hooray ' + currentPlayer + ' just won diagonally!');
+                }
+            }
+        }
+    }
+    //checks diagonally top to bottom
+    for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
+        for (let rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
+            if (connect4Grid[rowIndex][colIndex] != ' ') {
+                if (connect4Grid[rowIndex][colIndex] == connect4Grid[rowIndex + 1][colIndex + 1] && connect4Grid[rowIndex + 1][colIndex + 1] == connect4Grid[rowIndex + 2][colIndex + 2] && connect4Grid[rowIndex + 2][colIndex + 2] == connect4Grid[rowIndex + 3][colIndex + 3]) {
+                    alert('Hooray ' + currentPlayer + ' just won diagonally!');
                 }
             }
         }
     }
 }
-
-/*function chipsMatch() {
-    numOfMatchingChips += 1;
-    if (numOfMatchingChips == 4) {
-        gameOver = true;
-        return true;
-
-    }
-}*/
