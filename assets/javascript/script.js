@@ -120,7 +120,7 @@ function checkWin() {
             }
         }
     }
-    //Horisontal check (checks every colIndex in each row)
+    //Horizontal check (checks every colIndex in each row)
     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
         for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
             if (connect4Grid[rowIndex][colIndex] != ' ') {
@@ -129,7 +129,7 @@ function checkWin() {
                     connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray ' + currentPlayer + ' just won horisontally!');
+                    Swal.fire('Hooray ' + currentPlayer + ' just won horizontally!');
                     return;
                 }
             }
