@@ -60,5 +60,13 @@ body {
 
     display: flex;
 }
+
+.red-chip {
+    background-color: red;
+}
+
+.yellow-chip {
+    background-color: yellow;
+}
 }
 
