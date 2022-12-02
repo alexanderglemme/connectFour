@@ -19,7 +19,7 @@ var currentPlayer = playerYellow;
  * gives them unique coordinates by setting id via iteration,
  * gives each cell an event listener that calls placeChip when clicked
  * and makes a 2D array populated with empty strings,
- * so that the JS grid correlates with the html.
+ * so that the JS grid correlates with the HTML grid.
  */
 function setGridCells() {
 
@@ -47,7 +47,7 @@ function setGridCells() {
  * The placeChip() function gets the clicked cells id,
  * turns it into integers so that it can be used 
  * to specify which cell has been clicked in the DOM
- * so it can turn that index into the current players color
+ * so it can turn that index into either 'Yellow' or 'Red'
  * anytime a cell gets clicked. It also adds the current players
  * chip to the HTML grid by adding a class to the clicked cell,
  * while directly after switching the current player after
@@ -55,7 +55,7 @@ function setGridCells() {
  */
 function placeChip() {
     let cell = this
-    let clickedCellCoord = cell.id.split('-'); // 3-3 >>> [3, 3]
+    let clickedCellCoord = cell.id.split('-'); // e.g 3-3 >>> [3, 3]
     let rowIndex = parseInt(clickedCellCoord[0]);
     let colIndex = parseInt(clickedCellCoord[1]);
 
@@ -114,7 +114,7 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]
                 ) {
                     gameOver = true;
-                    alert('Hooray ' + currentPlayer + ' just won vertically!')
+                    Swal.fire('Hooray ' + currentPlayer + ' just won vertically!')
                     return;
                 }
             }
@@ -129,7 +129,7 @@ function checkWin() {
                     connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]
                 ) {
                     gameOver = true;
-                    alert('Hooray ' + currentPlayer + ' just won horisontally!');
+                    Swal.fire('Hooray ' + currentPlayer + ' just won horisontally!');
                     return;
                 }
             }
@@ -144,13 +144,14 @@ function checkWin() {
                     connect4Grid[rowIndex - 2][colIndex + 2] == connect4Grid[rowIndex - 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    alert('Hooray ' + currentPlayer + ' just won diagonally!');
+                    Swal.fire('Hooray ' + currentPlayer + ' just won diagonally!');
                     return;
                 }
             }
         }
     }
     //Diagonal check (from top left of grid '0-0' to bottom right of grid '5-5')
+    //The -3 in diagonal checks also hinders the loops from checking corners
     for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
         for (let rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
             if (connect4Grid[rowIndex][colIndex] != ' ') {
@@ -159,7 +160,7 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex + 2] == connect4Grid[rowIndex + 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    alert('Hooray ' + currentPlayer + ' just won diagonally!');
+                    Swal.fire('Hooray ' + currentPlayer + ' just won diagonally!');
                     return;
                 }
             }
