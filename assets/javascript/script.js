@@ -1,6 +1,7 @@
 const rows = 6;
 const columns = 7;
-const gravityRow = [1, 1, 1, 1, 1, 1, 1];
+
+var availableCellInRow = [5, 5, 5, 5, 5, 5, 5]
 
 var connect4Grid;
 window.onload = function () {
@@ -22,7 +23,6 @@ var currentPlayer = playerYellow;
  * so that the JS grid correlates with the HTML grid.
  */
 function setGridCells() {
-
     connect4Grid = [];
 
     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
@@ -41,7 +41,7 @@ function setGridCells() {
     gravityRow gets pushed to the JS grid so that 
     the user can't place chips everywhere on the grid
     */
-    connect4Grid.push(gravityRow);
+    //connect4Grid.push(gravityRow);
 }
 /**
  * The placeChip() function gets the clicked cells id,
@@ -54,22 +54,20 @@ function setGridCells() {
  * each turn.
  */
 function placeChip() {
-    let cell = this
-    let clickedCellCoord = cell.id.split('-'); // e.g 3-3 >>> [3, 3]
-    let rowIndex = parseInt(clickedCellCoord[0]);
+    let clickedCellCoord = this.id.split('-');
     let colIndex = parseInt(clickedCellCoord[1]);
+    let rowIndex = availableCellInRow[colIndex];
+
+    let cell = document.getElementById(rowIndex.toString() + '-' + colIndex.toString());
 
     //If someone has won, gameOver is true, causing early return
     if (gameOver) {
         return;
     }
 
-    /*
-    This if statement utilizes the gravityRow so that placeChip() 
-    only can be performed where gravity would allow it to,
-    which is on the bottom row or on top of other chips
-    */
-    if (connect4Grid[rowIndex + 1][colIndex] != ' ') {
+    if (availableCellInRow[colIndex] + 1 == 0) {
+        return;
+    } 
         //Updates grids
         if (currentPlayer == playerRed) {
             //HTML
@@ -85,8 +83,9 @@ function placeChip() {
             currentPlayer = playerRed;
 
         }
-    }
+     availableCellInRow[colIndex] -= 1;
 }
+
 
 /**
  * The checkWin() function checks the entire connect4Grid
@@ -135,7 +134,7 @@ function checkWin() {
             }
         }
     }
-    //Diagonal check (from bottom left of grid '5-0' to top right of grid '0-5')
+    //Diagonal check (from bottom left of grid '5-0' to top right of grid '0-6')
     for (let rowIndex = 5; rowIndex >= 3; rowIndex--) {
         for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
             if (connect4Grid[rowIndex][colIndex] != ' ') {
