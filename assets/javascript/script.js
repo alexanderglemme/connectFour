@@ -1,7 +1,8 @@
 const rows = 6;
 const columns = 7;
-
-var availableCellInRow = [5, 5, 5, 5, 5, 5, 5]
+//The reason the number five is present here is so that the
+//number can be used for indexing "0 to 5" in the grids instead of "1 to 6"
+var rowInColumn = [5, 5, 5, 5, 5, 5, 5]
 
 var connect4Grid;
 window.onload = function () {
@@ -51,7 +52,7 @@ function setGridCells() {
 function placeChip() {
     let clickedCellCoord = this.id.split('-');
     let colIndex = parseInt(clickedCellCoord[1]);
-    let rowIndex = availableCellInRow[colIndex];
+    let rowIndex = rowInColumn[colIndex];
 
     let cell = document.getElementById(rowIndex.toString() + '-' + colIndex.toString());
 
@@ -59,15 +60,22 @@ function placeChip() {
     if (gameOver) {
         return;
     }
-
-    if (availableCellInRow[colIndex] + 1 == 0) {
+    /*
+     Since the indices only consists of fives means that after clicking
+     the last cell in a column (e.g 0-0) the rowInColumn will turn into -1.
+     If accidentally clicked again this causes an error in the console
+     bc let cell no longer can be defined, which then cascades into more 
+     problems. This if statement makes sure that the last cell that
+     the program tries to perform placeChip() on is rowInColumn[0]. 
+     */
+    if (rowInColumn[colIndex] + 1 == 0) {
         return;
     }
     //Updates grids
     if (currentPlayer == playerRed) {
-        //HTML
+        //Adds class to div element in HTML
         cell.classList.add('red-chip');
-        //JavaScript
+        //Adds currentPlayer to same coordinates but in JS grid
         connect4Grid[rowIndex][colIndex] = currentPlayer;
         checkWin();
         currentPlayer = playerYellow;
@@ -78,7 +86,8 @@ function placeChip() {
         currentPlayer = playerRed;
 
     }
-    availableCellInRow[colIndex] -= 1;
+    //Reduces the clicked column's available cells
+    rowInColumn[colIndex] -= 1;
 }
 
 
@@ -94,7 +103,7 @@ function placeChip() {
 
 /*
  I used nested for loops and wrote out the index's names
- for readability reasons. The loop's increment values
+ for readability reasons. The loop's middle increment values
  always correspond with the if statement's decrement values
  and vice versa so that the function never checks outside the grid.
 */
@@ -108,7 +117,9 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray!', currentPlayer + ' just won vertically! Reset the grid to play again!', 'success')
+                    Swal.fire('Hooray!', currentPlayer + 
+                    ' just won vertically! Reset the grid to play again!', 
+                    'success')
                     return;
                 }
             }
@@ -123,7 +134,9 @@ function checkWin() {
                     connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray!', currentPlayer + ' just won horizontally! Reset the grid to play again!', 'success');
+                    Swal.fire('Hooray!', currentPlayer + 
+                    ' just won horizontally! Reset the grid to play again!', 
+                    'success');
                     return;
                 }
             }
@@ -138,13 +151,15 @@ function checkWin() {
                     connect4Grid[rowIndex - 2][colIndex + 2] == connect4Grid[rowIndex - 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray!', currentPlayer + ' just won diagonally! Reset the grid to play again!', 'success');
+                    Swal.fire('Hooray!', currentPlayer + 
+                    ' just won diagonally! Reset the grid to play again!', 
+                    'success');
                     return;
                 }
             }
         }
     }
-    //Diagonal check (from top left of grid '0-0' to bottom right of grid '5-5')
+    //Diagonal check (from top left of grid '0-0' to bottom right of grid '5-6')
     //The -3 in diagonal checks also hinders the loops from checking corners
     for (let colIndex = 0; colIndex < columns - 3; colIndex++) {
         for (let rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
@@ -154,31 +169,36 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex + 2] == connect4Grid[rowIndex + 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray!', currentPlayer + ' just won diagonally! Reset the grid to play again!', 'success');
+                    Swal.fire('Hooray!', 
+                    currentPlayer + 
+                    ' just won diagonally! Reset the grid to play again!', 
+                    'success');
                     return;
                 }
             }
         }
     }
 }
-
+//Resets all vars, deletes all cells, then sets new cells
 function resetGame() {
-    availableCellInRow = [5, 5, 5, 5, 5, 5, 5];
+    rowInColumn = [5, 5, 5, 5, 5, 5, 5];
     gameOver = false;
     currentPlayer = playerYellow;
 
     let connect4HtmlGrid = document.getElementById('connect4-grid');
-
-        while (connect4HtmlGrid.firstChild) {
-            connect4HtmlGrid.removeChild(connect4HtmlGrid.firstChild);
-        }
-    
-      setGridCells();
+    //Deletes all cells
+    while (connect4HtmlGrid.firstChild) {
+        connect4HtmlGrid.removeChild(connect4HtmlGrid.firstChild);
+    }
+    //Creates new cells, effectively wiping previously placed chips
+    setGridCells();
 
 }
-
+//Throws sweetalert containing rules when called
 function showRules() {
-    Swal.fire('Welcome to Connect Four!', 
-    'The rules are simple! Just try and connect 4 chips of the same color either vertically, horizontally or diagonally by clicking a column on the grid. Yellow goes first!',
-    'info')
+    Swal.fire('Welcome to Connect Four!',
+        'The rules are simple! Just try and connect 4 chips of the same color ' + 
+        'either vertically, horizontally or diagonally by clicking ' + 
+        'a column on the grid. Yellow goes first!',
+        'info')
 }
