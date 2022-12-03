@@ -10,17 +10,9 @@
 ![](assets/images/)
 !(assets/images/)
 
-## Gallery page
-The Gallery page features a masonry style photo wall structured into three columns that display a sample of artworks. The number or columns will decrease as the device gets smaller. These photos are as stated just a sample of artworks, and will continually be updated with newer more relevant work. As of now these are the best images at hand but will as stated be updated. 
-
 !(assets/images/screenshot-gallery-top.jpg)
 !(assets/images/screenshot-gallery-mid.jpg)
 !(assets/images/screenshot-gallery-bottom.jpg)
-
-## Visit Dagmar page
-This page features contact information, some short information about Dagmars main place of business, how to book a visit and an iframe element containing a fully interactable and ready to use google maps session with Dagmars address already entered. The intention behind this page is to create a way of engouraging the user to take action and start planning their route to Dagmar Glemme Art Center.
-#### Bonus feature:
-While on the site with an iphone, all phone numbers on screen are by iOS default clickable, and will open a menu that suggests the user to call Dagmar or cancel the action.
 
 !(assets/images/)
 !(assets/images/)
