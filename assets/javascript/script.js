@@ -37,11 +37,6 @@ function setGridCells() {
         }
         connect4Grid.push(row);
     }
-    /*
-    gravityRow gets pushed to the JS grid so that 
-    the user can't place chips everywhere on the grid
-    */
-    //connect4Grid.push(gravityRow);
 }
 /**
  * The placeChip() function gets the clicked cells id,
@@ -67,23 +62,23 @@ function placeChip() {
 
     if (availableCellInRow[colIndex] + 1 == 0) {
         return;
-    } 
-        //Updates grids
-        if (currentPlayer == playerRed) {
-            //HTML
-            cell.classList.add('red-chip');
-            //JavaScript
-            connect4Grid[rowIndex][colIndex] = currentPlayer;
-            checkWin();
-            currentPlayer = playerYellow;
-        } else if (currentPlayer == playerYellow) {
-            cell.classList.add('yellow-chip');
-            connect4Grid[rowIndex][colIndex] = currentPlayer;
-            checkWin();
-            currentPlayer = playerRed;
+    }
+    //Updates grids
+    if (currentPlayer == playerRed) {
+        //HTML
+        cell.classList.add('red-chip');
+        //JavaScript
+        connect4Grid[rowIndex][colIndex] = currentPlayer;
+        checkWin();
+        currentPlayer = playerYellow;
+    } else if (currentPlayer == playerYellow) {
+        cell.classList.add('yellow-chip');
+        connect4Grid[rowIndex][colIndex] = currentPlayer;
+        checkWin();
+        currentPlayer = playerRed;
 
-        }
-     availableCellInRow[colIndex] -= 1;
+    }
+    availableCellInRow[colIndex] -= 1;
 }
 
 
@@ -113,7 +108,7 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex] == connect4Grid[rowIndex + 3][colIndex]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray ' + currentPlayer + ' just won vertically!')
+                    Swal.fire('Hooray!', currentPlayer + ' just won vertically! Reset the grid to play again!', 'success')
                     return;
                 }
             }
@@ -128,7 +123,7 @@ function checkWin() {
                     connect4Grid[rowIndex][colIndex + 2] == connect4Grid[rowIndex][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray ' + currentPlayer + ' just won horizontally!');
+                    Swal.fire('Hooray!', currentPlayer + ' just won horizontally! Reset the grid to play again!', 'success');
                     return;
                 }
             }
@@ -143,7 +138,7 @@ function checkWin() {
                     connect4Grid[rowIndex - 2][colIndex + 2] == connect4Grid[rowIndex - 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray ' + currentPlayer + ' just won diagonally!');
+                    Swal.fire('Hooray!', currentPlayer + ' just won diagonally! Reset the grid to play again!', 'success');
                     return;
                 }
             }
@@ -159,10 +154,31 @@ function checkWin() {
                     connect4Grid[rowIndex + 2][colIndex + 2] == connect4Grid[rowIndex + 3][colIndex + 3]
                 ) {
                     gameOver = true;
-                    Swal.fire('Hooray ' + currentPlayer + ' just won diagonally!');
+                    Swal.fire('Hooray!', currentPlayer + ' just won diagonally! Reset the grid to play again!', 'success');
                     return;
                 }
             }
         }
     }
+}
+
+function resetGame() {
+    availableCellInRow = [5, 5, 5, 5, 5, 5, 5];
+    gameOver = false;
+    currentPlayer = playerYellow;
+
+    let connect4HtmlGrid = document.getElementById('connect4-grid');
+
+        while (connect4HtmlGrid.firstChild) {
+            connect4HtmlGrid.removeChild(connect4HtmlGrid.firstChild);
+        }
+    
+      setGridCells();
+
+}
+
+function showRules() {
+    Swal.fire('Welcome to Connect Four!', 
+    'The rules are simple! Just try and connect 4 chips of the same color either vertically, horizontally or diagonally by clicking a column on the grid. Yellow goes first!',
+    'info')
 }
