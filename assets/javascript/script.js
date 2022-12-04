@@ -88,6 +88,9 @@ function placeChip() {
     }
     //Reduces the clicked column's available cells
     rowInColumn[colIndex] -= 1;
+    //Indicates who's turn it is to set a chip
+    let whosTurn = document.getElementById('turn');
+    whosTurn.innerText = currentPlayer + "'s" + ' turn';
 }
 
 
@@ -184,6 +187,9 @@ function resetGame() {
     rowInColumn = [5, 5, 5, 5, 5, 5, 5];
     gameOver = false;
     currentPlayer = playerYellow;
+    
+    let whosTurn = document.getElementById('turn');
+    whosTurn.innerText = 'Yellow goes first';
 
     let connect4HtmlGrid = document.getElementById('connect4-grid');
     //Deletes all cells
