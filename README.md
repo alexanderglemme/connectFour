@@ -49,12 +49,12 @@ There are no unfixed bugs that I am aware of at this point in time.
 # Credits
 
 ### Sweet Alerts
-- All code that concerns any in game pop up is directly taken from [sweetalert2](https://sweetalert2.github.io/#examples) which is a free, open source package that effectively replaces JSs vastly inferior alert() pop-ups. Using sweetalerts2 keeps the styling of the pop-ups consistent over all browsers and opperative systems, and they look nicer.
+- All code or file that is named sweetalert2 concerns the in game pop-ups and is directly taken from [sweetalert2](https://sweetalert2.github.io/#examples) which is a free, open source package that effectively replaces JSs vastly inferior alert() pop-ups. Using sweetalerts2 keeps the styling of the pop-ups consistent over all browsers and opperative systems, and they look nicer.
 
 ### Code
 - I've at times turned to w3schools.com and stackoverflow to get explanations about syntax and what it does and how to use it, and sometimes copied syntax from there but then applied it in my own way.
 
-- Before I started to code I watched [this tutorial](https://www.youtube.com/watch?v=4ARsthVnCTg&t=809s) from the youtube channel 'Kenny Yip Coding' which gave me inspiration and a general idea of what and how to code the game. Though nothing is directly copy/pasted, since it's my first time coding in JS, this video has definetly influenced the style and thoughtprocess behind my code.
+- Before I started to code I watched [this tutorial](https://www.youtube.com/watch?v=4ARsthVnCTg&t=809s) from the youtube channel 'Kenny Yip Coding' which gave me inspiration and a general idea of what and how to code the game. Though nothing is directly copy/pasted, since it's my first time coding in JS, this video has definetly influenced my code and structure of this project.
 
 - My mentor Brian Macharia has been a huge resource throughout the project.
 
