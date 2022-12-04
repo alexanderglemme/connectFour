@@ -49,7 +49,7 @@ There are no unfixed bugs that I am aware of at this point in time.
 # Credits
 
 ### Sweet Alerts
-- All code that concerns any in game pop up is directly taken from [sweetalert2](https://sweetalert2.github.io/#examples) which is a free, open source package that effectively replaces JSs insuperior alert() pop-ups. Using sweetalerts2 keeps the styling of the pop-ups consistent over all browsers and opperative systems, and they look nicer.
+- All code that concerns any in game pop up is directly taken from [sweetalert2](https://sweetalert2.github.io/#examples) which is a free, open source package that effectively replaces JSs vastly inferior alert() pop-ups. Using sweetalerts2 keeps the styling of the pop-ups consistent over all browsers and opperative systems, and they look nicer.
 
 ### Code
 - I've at times turned to w3schools.com and stackoverflow to get explanations about syntax and what it does and how to use it, and sometimes copied syntax from there but then applied it in my own way.
